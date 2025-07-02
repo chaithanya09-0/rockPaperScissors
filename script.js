@@ -9,3 +9,10 @@ function getComputerChoice (){
 }
 let computerChoice=getComputerChoice()
 console.log(computerChoice)
+
+function getHumanChoice() {
+    userChoice = prompt ("Enter your choice[rock/paper/scissors]")
+    userChoice = userChoice.toLowerCase()
+    return userChoice
+}
+getHumanChoice()
