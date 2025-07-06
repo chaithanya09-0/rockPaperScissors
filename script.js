@@ -1,5 +1,17 @@
 let humanScore = 0
 let computerScore = 0
+let humanChoice;
+let computerChoice;
+let msg = "";
+
+const rock = document.querySelector(".rock")
+const paper = document.querySelector(".paper")
+const scissors = document.querySelector(".scissors")
+const display = document.querySelector('.display')
+
+rock.addEventListener('click', () => playRound("rock", getComputerChoice()))
+paper.addEventListener('click', () => playRound("paper", getComputerChoice()))
+scissors.addEventListener('click', () => playRound("scissors", getComputerChoice()))
 
 function getComputerChoice (){
     let num = Math.floor( Math.random() * 10 )
@@ -9,66 +21,69 @@ function getComputerChoice (){
     return (num === 0) ? "rock" :
     (num === 1) ? "paper" : "scissors"
 }
-let computerChoice;
-
-
-function getHumanChoice() {
-    userChoice = prompt ("Enter your choice[rock/paper/scissors]")
-    userChoice = userChoice.toLowerCase()
-    return userChoice
-}
-let humanChoice;
 
 function playRound(humanChoice , computerChoice) {
     if (humanChoice === "rock"){
         if (computerChoice === "rock") {
-            console.log("Computer chose rock")
-            console.log("tie! no points for both players")
+            msg = "Both chose rock! Neither wins!"
+            display.innerHTML= `<p>${msg}</p>
+                                <p>Computer Score : ${computerScore}</p>
+                                <p>Your Score : ${humanScore}</p>`
         } else if (computerChoice === "paper") { 
-            console.log("Computer chose paper")
-            console.log("You lose!");
             computerScore++;
+            msg = "You chose rock, Computer chose paper. Computer wins!"
+            display.innerHTML= `<p>${msg}</p>
+                                <p>Computer Score : ${computerScore}</p>
+                                <p>Your Score : ${humanScore}</p>`
         } else { 
-            console.log("Computer chose scissors")
-            console.log("You Win!")
-            humanScore++ 
+            humanScore++;
+            msg = "You chose rock, Computer chose scissors. You win!"
+            display.innerHTML= `<p>${msg}</p>
+                                <p>Computer Score : ${computerScore}</p>
+                                <p>Your Score : ${humanScore}</p>`
         }
     }
     if (humanChoice === "paper"){
         if (computerChoice === "rock") {
-            console.log("Computer chose rock")
-            console.log("You win!")
-            humanScore++
+            humanScore++;
+            msg = "You chose paper, Computer chose rock. You win!"
+            display.innerHTML= `<p>${msg}</p>
+                                <p>Computer Score : ${computerScore}</p>
+                                <p>Your Score : ${humanScore}</p>`
         } else if (computerChoice === "paper") { 
-            console.log("Computer chose paper")
-            console.log("tie! no points for both players");
+            msg = "Both chose paper! Neither wins!"
+            display.innerHTML= `<p>${msg}</p>
+                                <p>Computer Score : ${computerScore}</p>
+                                <p>Your Score : ${humanScore}</p>`
         } else { 
-            console.log("Computer chose scissors")
-            console.log("You lose!")
-            computerScore++ 
+            computerScore++;
+            msg = "You chose paper, Computer chose scissors. Computer wins!"
+            display.innerHTML= `<p>${msg}</p>
+                                <p>Computer Score : ${computerScore}</p>
+                                <p>Your Score : ${humanScore}</p>`
         }
     }
     if (humanChoice === "scissors"){
         if (computerChoice === "rock") {
-            console.log("Computer chose rock")
-            console.log("You lose!");
             computerScore++;
+            msg = "You chose scissors, Computer chose rock. Computer wins!"
+            display.innerHTML= `<p>${msg}</p>
+                                <p>Computer Score : ${computerScore}</p>
+                                <p>Your Score : ${humanScore}</p>`
         } else if (computerChoice === "paper") { 
-            console.log("Computer chose paper")
-            console.log("You Win!")
-            humanScore++ 
+            humanScore++;
+            msg = "You chose scissors, Computer chose paper. You win!"
+            display.innerHTML= `<p>${msg}</p>
+                                <p>Computer Score : ${computerScore}</p>
+                                <p>Your Score : ${humanScore}</p>`
         } else { 
-            console.log("Computer chose scissors")
-            console.log("tie! no points for both players");
+            msg = "Both chose scissors! Neither wins!"
+            display.innerHTML= `<p>${msg}</p>
+                                <p>Computer Score : ${computerScore}</p>
+                                <p>Your Score : ${humanScore}</p>`
         }
     }
-}
-function playGame(){
-    for (let i=0; i <5; i++){
-        computerChoice = getComputerChoice()
-        humanChoice = getHumanChoice()
-        playRound(humanChoice , computerChoice)
+    if(humanScore === 5 || computerScore === 5){
+        (humanScore > computerScore) ? display.innerHTML += "<p>You won the game</p>" : display.innerHTML += "<p>Computer won the game</p>";
     }
-    (computerScore > humanScore) ? console.log("Computer won the game") : console.log("You won the game")
 }
-playGame();
